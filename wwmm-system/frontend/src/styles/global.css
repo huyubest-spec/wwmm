@@ -1,0 +1,39 @@
+body, html, #app { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", Helvetica, Arial, sans-serif; background: #f4f6fb; color: #1f2a44; }
+a { color: inherit; text-decoration: none; }
+.text-mono { font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace; }
+.text-mute { color: #8a96b3; font-size: 12px; }
+.tag-chain { background: #2c5fe0; color: #fff; font-size: 10px; padding: 1px 5px; border-radius: 3px; margin-left: 4px; }
+.block-card { background: #fff; border: 1px solid #e6ebf5; border-radius: 10px; padding: 20px; margin-bottom: 16px; }
+.section-title { font-size: 18px; font-weight: 600; margin: 0 0 16px 0; color: #1f2a44; }
+.section-title::before { content: ''; display: inline-block; width: 4px; height: 18px; background: #2c5fe0; margin-right: 8px; vertical-align: -3px; border-radius: 2px; }
+.el-card { border-radius: 10px !important; }
+.el-button--primary { background: #2c5fe0 !important; border-color: #2c5fe0 !important; }
+.el-button--primary:hover { background: #1e4dcc !important; }
+.hash-cell { font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace; font-size: 12px; color: #1f2a44; }
+.banner { background: linear-gradient(135deg, #2c5fe0 0%, #5b8def 100%); color: #fff; padding: 36px 28px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 8px 24px rgba(44,95,224,0.2); }
+.banner h1 { margin: 0 0 8px 0; font-size: 26px; font-weight: 700; }
+.banner p { margin: 0; opacity: 0.92; font-size: 14px; line-height: 1.7; }
+.banner .chain-pill { display: inline-block; background: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 16px; font-size: 12px; margin-top: 12px; }
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.stat-card { background: #fff; border-radius: 10px; padding: 18px; border: 1px solid #e6ebf5; }
+.stat-card .label { font-size: 12px; color: #8a96b3; }
+.stat-card .value { font-size: 26px; font-weight: 700; color: #1f2a44; margin-top: 6px; }
+.stat-card .chain-hash { font-family: 'Cascadia Code', monospace; font-size: 11px; color: #2c5fe0; word-break: break-all; }
+.photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.photo-card { background: #fff; border-radius: 10px; overflow: hidden; cursor: pointer; transition: all 0.2s; border: 1px solid #e6ebf5; }
+.photo-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.08); }
+.photo-card .image { width: 100%; height: 200px; background: #f0f2f7 center/cover no-repeat; position: relative; }
+.photo-card .image .chain-tag { position: absolute; top: 8px; right: 8px; background: rgba(44,95,224,0.92); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px; }
+.photo-card .info { padding: 12px; }
+.photo-card .info .title { font-weight: 600; font-size: 14px; color: #1f2a44; }
+.photo-card .info .author { font-size: 12px; color: #8a96b3; margin-top: 4px; }
+.photo-card .info .meta { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-size: 12px; color: #4a5568; }
+.photo-card .info .vote { color: #d44030; font-weight: 600; }
+.ranking-row { display: flex; align-items: center; padding: 12px 16px; background: #fff; border: 1px solid #e6ebf5; border-radius: 8px; margin-bottom: 8px; }
+.ranking-row .rank-no { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; margin-right: 14px; font-size: 13px; }
+.rank-1 { background: linear-gradient(135deg, #f0b400, #f5d000); }
+.rank-2 { background: linear-gradient(135deg, #b8b8b8, #d8d8d8); }
+.rank-3 { background: linear-gradient(135deg, #c97935, #e8a064); }
+.rank-other { background: #8a96b3; }
+.tx-payload { background: #1e2230; color: #b8d0ff; padding: 14px; border-radius: 8px; font-family: 'Cascadia Code', 'Consolas', monospace; font-size: 12px; line-height: 1.6; max-height: 360px; overflow: auto; }
+.empty-hint { text-align: center; padding: 40px 0; color: #8a96b3; }

@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "golang.go",
+    "vue.volar",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "editorconfig.editorconfig",
+    "juanblanco.solidity"
+  ]
+}

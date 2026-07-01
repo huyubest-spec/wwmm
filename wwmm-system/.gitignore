@@ -1,0 +1,16 @@
+node_modules/
+backend/wwmm-server
+backend/wwmm-server.exe
+backend/test_photos/
+backend/wwmm-server.log
+backend/*.log
+backend/uploads/photos/
+backend/.env
+frontend/dist/
+frontend/.vite/
+*.log
+.DS_Store
+Thumbs.db
+.vscode/.cache
+.idea/
+*.swp
