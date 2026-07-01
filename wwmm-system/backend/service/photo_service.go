@@ -1,6 +1,7 @@
 package service
 
 import (
+	"database/sql"
 	"encoding/json"
 	"errors"
 	"wwmm/dao"
@@ -15,7 +16,11 @@ func SubmitPhoto(photographerID int, p *model.Photo) (*model.Photo, error) {
 	if p.ImageURL == "" || p.ImageHash == "" {
 		return nil, errors.New("图片未上传")
 	}
-	if existing, _ := dao.GetPhotoByHash(p.ImageHash); existing != nil {
+	existing, err := dao.GetPhotoByHash(p.ImageHash)
+	if err != nil && !errors.Is(err, sql.ErrNoRows) {
+		return nil, errors.New("查询图片哈希失败: " + err.Error())
+	}
+	if existing != nil {
 		return nil, errors.New("该图片已存在（哈希冲突），请勿重复上传")
 	}
 	p.PhotographerID = photographerID

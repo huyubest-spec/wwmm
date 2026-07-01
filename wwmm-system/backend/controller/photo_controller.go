@@ -108,8 +108,14 @@ func UploadPhoto(c *gin.Context) {
 	description := c.PostForm("description")
 	category := c.PostForm("category")
 	location := c.PostForm("shootLocation")
-	shootTime := c.PostForm("shootTime")
+	shootTime := strings.TrimSpace(c.PostForm("shootTime"))
 	cameraInfo := c.PostForm("cameraInfo")
+	if shootTime != "" {
+		if _, err := time.Parse("2006-01-02", shootTime); err != nil {
+			utils.Fail(c, 400, "拍摄时间格式错误，应为 YYYY-MM-DD")
+			return
+		}
+	}
 
 	fileHeader, err := c.FormFile("image")
 	if err != nil {

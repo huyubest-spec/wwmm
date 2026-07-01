@@ -42,7 +42,7 @@
     {
       "label": "build: Backend (Go)",
       "type": "shell",
-      "command": "go",
+      "command": "${env:GOBIN:-D:/Programs/go/bin/go.exe}",
       "args": [
         "build",
         "-o",
@@ -79,7 +79,7 @@
     {
       "label": "run: Backend (Go run)",
       "type": "shell",
-      "command": "go",
+      "command": "${env:GOBIN:-D:/Programs/go/bin/go.exe}",
       "args": ["run", "."],
       "options": {
         "cwd": "${workspaceFolder}/backend"

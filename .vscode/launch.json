@@ -1,0 +1,125 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "后端: 启动 + 调试 (delve)",
+      "type": "go",
+      "request": "launch",
+      "mode": "debug",
+      "program": "${workspaceFolder}/wwmm-system/backend",
+      "cwd": "${workspaceFolder}/wwmm-system/backend",
+      "env": {
+        "DB_HOST": "localhost",
+        "DB_PORT": "3306",
+        "DB_USER": "root",
+        "DB_PASSWORD": "123456",
+        "DB_NAME": "wwmm_db",
+        "SERVER_PORT": "8080",
+        "UPLOAD_DIR": "./uploads",
+        "STATIC_PATH": "/static",
+        "CHAIN_DIFF": "4"
+      },
+      "preLaunchTask": "build: Backend (Go)",
+      "postDebugTask": "kill: wwmm processes",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "presentation": {
+        "group": "wwmm",
+        "order": 1
+      }
+    },
+    {
+      "name": "后端: 仅运行 (go run, 不打断点)",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/wwmm-system/backend",
+      "cwd": "${workspaceFolder}/wwmm-system/backend",
+      "env": {
+        "DB_HOST": "localhost",
+        "DB_PORT": "3306",
+        "DB_USER": "root",
+        "DB_PASSWORD": "123456",
+        "DB_NAME": "wwmm_db",
+        "SERVER_PORT": "8080",
+        "UPLOAD_DIR": "./uploads",
+        "STATIC_PATH": "/static",
+        "CHAIN_DIFF": "4"
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "presentation": {
+        "group": "wwmm",
+        "order": 2
+      },
+      "detail": "go run 方式直接跑后端，启动最快但调试体验略差"
+    },
+    {
+      "name": "后端: Attach 到已运行的进程",
+      "type": "go",
+      "request": "attach",
+      "mode": "local",
+      "processId": "${command:pickProcess}",
+      "apiVersion": 2,
+      "presentation": {
+        "group": "wwmm",
+        "order": 3
+      },
+      "detail": "先单独跑后端，再 attach 上去打断点"
+    },
+    {
+      "name": "前端: 启动 Vite 开发服务 (npm run dev)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--",
+        "--host",
+        "0.0.0.0"
+      ],
+      "cwd": "${workspaceFolder}/wwmm-system/frontend",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "serverReadyAction": {
+        "pattern": "Local:\\s+(https?://\\S+)",
+        "uriFormat": "%s",
+        "action": "openExternally"
+      },
+      "presentation": {
+        "group": "wwmm",
+        "order": 4
+      },
+      "detail": "Vite 启动后自动打开 http://localhost:5173"
+    },
+    {
+      "name": "前端: 启动 Vite (Chrome 调试)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/wwmm-system/frontend/src",
+      "preLaunchTask": "run: Frontend (Vite dev)",
+      "presentation": {
+        "group": "wwmm",
+        "order": 5
+      },
+      "detail": "用 Chrome DevTools 调试前端，需先确保 Vite dev server 跑起来"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "前后端: 一键同时启动 (调试)",
+      "configurations": [
+        "后端: 启动 + 调试 (delve)",
+        "前端: 启动 Vite 开发服务 (npm run dev)"
+      ],
+      "stopAll": true,
+      "presentation": {
+        "group": "wwmm",
+        "order": 0
+      },
+      "detail": "推荐：同时启动 Go 后端（带调试）+ Vite 前端"
+    }
+  ]
+}

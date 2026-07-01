@@ -1,0 +1,193 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "init: MySQL",
+      "type": "shell",
+      "command": "${env:MYSQL_BIN:-C:/Program Files/MySQL/MySQL Server 8.0/bin/mysql.exe}",
+      "args": [
+        "-h", "localhost",
+        "-P", "3306",
+        "-u", "root",
+        "-p123456"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/wwmm-system"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "detail": "登录 MySQL (root/123456) — 可手动执行 source sql/init.sql"
+    },
+    {
+      "label": "init: Run init.sql",
+      "type": "shell",
+      "command": "cmd",
+      "args": [
+        "/c",
+        "chcp 65001 >nul && \"${env:MYSQL_BIN:-C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\\mysql.exe}\" -h localhost -P 3306 -u root -p123456 < sql\\init.sql"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/wwmm-system"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "detail": "一键执行 sql/init.sql 创建/重建数据库与表"
+    },
+    {
+      "label": "build: Backend (Go)",
+      "type": "shell",
+      "command": "${env:GOBIN:-D:/Programs/go/bin/go.exe}",
+      "args": [
+        "build",
+        "-o",
+        "wwmm-server.exe",
+        "."
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/wwmm-system/backend"
+      },
+      "group": "build",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      },
+      "detail": "编译 Go 后端，输出 wwmm-system/backend/wwmm-server.exe"
+    },
+    {
+      "label": "run: Backend (Go)",
+      "type": "shell",
+      "command": "${workspaceFolder}/wwmm-system/backend/wwmm-server.exe",
+      "options": {
+        "cwd": "${workspaceFolder}/wwmm-system/backend"
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "group": "wwmm"
+      },
+      "detail": "启动 Go 后端 (默认 :8080)"
+    },
+    {
+      "label": "run: Backend (Go run)",
+      "type": "shell",
+      "command": "${env:GOBIN:-D:/Programs/go/bin/go.exe}",
+      "args": ["run", "."],
+      "options": {
+        "cwd": "${workspaceFolder}/wwmm-system/backend"
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "group": "wwmm"
+      },
+      "detail": "go run 方式启动后端（无需手动编译）"
+    },
+    {
+      "label": "install: Frontend (npm)",
+      "type": "shell",
+      "command": "npm.cmd",
+      "args": ["install"],
+      "options": {
+        "cwd": "${workspaceFolder}/wwmm-system/frontend"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "detail": "安装前端依赖（首次运行必执行）"
+    },
+    {
+      "label": "run: Frontend (Vite dev)",
+      "type": "shell",
+      "command": "npm.cmd",
+      "args": ["run", "dev"],
+      "options": {
+        "cwd": "${workspaceFolder}/wwmm-system/frontend"
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "group": "wwmm"
+      },
+      "detail": "启动 Vite 开发服务器 (默认 :5173)"
+    },
+    {
+      "label": "build: Frontend (Vite build)",
+      "type": "shell",
+      "command": "npm.cmd",
+      "args": ["run", "build"],
+      "options": {
+        "cwd": "${workspaceFolder}/wwmm-system/frontend"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "detail": "构建前端生产包到 frontend/dist"
+    },
+    {
+      "label": "wwmm: Start Backend + Frontend",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "run: Backend (Go)",
+        "run: Frontend (Vite dev)"
+      ],
+      "problemMatcher": [],
+      "detail": "一键同时启动后端和前端（推荐）"
+    },
+    {
+      "label": "wwmm: Build All",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "build: Backend (Go)",
+        "build: Frontend (Vite build)"
+      ],
+      "problemMatcher": [],
+      "detail": "一键编译后端 + 构建前端"
+    },
+    {
+      "label": "wwmm: Full Setup",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "init: Run init.sql",
+        "build: Backend (Go)",
+        "install: Frontend (npm)",
+        "wwmm: Start Backend + Frontend"
+      ],
+      "problemMatcher": [],
+      "detail": "从 0 到启动：初始化数据库 → 编译后端 → 安装前端依赖 → 启动前后端"
+    },
+    {
+      "label": "kill: wwmm processes",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy",
+        "Bypass",
+        "-Command",
+        "Get-Process -Name 'wwmm-server','node' -ErrorAction SilentlyContinue | Stop-Process -Force; Write-Host '已停止 wwmm-server 与 node 进程'"
+      ],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "detail": "停止后端 (wwmm-server.exe) 与前端 (node) 进程"
+    }
+  ]
+}
